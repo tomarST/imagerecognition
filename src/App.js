@@ -70,8 +70,10 @@ class App extends Component {
     this.setState({ route: route });
     if (route === "home") {
       this.setState({ isSignedIn: true, route: route });
+      sessionStorage.setItem('isSignedIn', true);
     } else {
       this.setState(Object.assign({}, initialState, { isSignedIn: false,route:route }));
+      sessionStorage.clear();
     }
   };
   calculateFaceLocation = e => {
@@ -142,7 +144,7 @@ class App extends Component {
         <div className="componentsC">
           <Navigation
             onRouteChange={this.onRouteChange}
-            isSignedIn={this.state.isSignedIn}
+            isSignedIn={sessionStorage.getItem('isSignedIn')}
           />
           <Logo />
           {this.state.route === "signin" ? (
